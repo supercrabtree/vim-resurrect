@@ -15,7 +15,7 @@ reopen last closed tabs.
 <C-^>
 ```
 
-Pressing `<C-^` will open the alternative file, which is often the buffer that
+Pressing `<C-^>` will open the alternative file, which is often the buffer that
 was just deleted. But repeated presses will just toggle between the two, not
 open earlier files. Also the alternative file is not always the last buffer, it
 depends on the language.
@@ -38,4 +38,29 @@ You can use your favorite plugin manager, I like
 Plug 'supercrabtree/vim-resurrect'
 ```
 
-MIT
+## Customisation
+
+By default Resurrect reopens any kind of file but you probably want to ignore a
+few kinds of file, for example anything in the `.git` dir:
+
+```vim
+let g:resurrect_ignore_patterns = [ '/.git/' ]
+```
+
+Or to also ignore all fugitive diffs:
+
+```vim
+let g:resurrect_ignore_patterns = [ '/.git/', '^fugitive://' ]
+```
+
+Each string is a regular expression and any file that matches any of them will
+be ignored by Resurrect. Here is a full example:
+
+```vim
+let g:resurrect_ignore_patterns = [
+\  '/.git/',
+\  'fugitive://',
+\  '/undotree_2',
+\  '/__CtrlSF__'
+\]
+```

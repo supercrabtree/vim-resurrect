@@ -22,3 +22,20 @@ Most recently used plugins.
 Plugins such as mru.vim and mru provide easy access to the most recently opened
 files, but this is not the most recently closed files, and is not as quick to
 just reopen.
+
+Customisation
+
+By default Resurrect reopens any kind of file but you probably want to ignore a few kinds of file, for example anything in the .git dir:
+
+let g:resurrect_ignore_patterns = [ '/.git/' ]
+Or to also ignore all fugitive diffs:
+
+let g:resurrect_ignore_patterns = [ '/.git/', '^fugitive://' ]
+Each string is a regular expression and any file that matches any of them will be ignored by Resurrect. Here is a full example:
+
+let g:resurrect_ignore_patterns = [
+\  '/.git/',
+\  'fugitive://',
+\  '/undotree_2',
+\  '/__CtrlSF__'
+\]

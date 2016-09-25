@@ -7,6 +7,10 @@ let g:resurrect_home = $HOME.'/.vim/resurrect'
 let g:resurrect_dir = $HOME.'/.vim/resurrect'.getcwd()
 let s:resurrect_file = g:resurrect_dir.'/resurrect.txt'
 
+if !exists('g:resurrect_ignore_patterns')
+  let g:resurrect_ignore_patterns = []
+endif
+
 if !isdirectory(g:resurrect_dir)
   call mkdir(g:resurrect_dir, 'p')
 endif
@@ -36,6 +40,11 @@ function! s:onBufDelete(filename)
   if empty(a:filename)
     return
   endif
+  for item in g:resurrect_ignore_patterns
+    if a:filename =~ item
+      return
+    endif
+  endfor
   let l:withoutFileName = filter(s:resurrect_file_lines, 'v:val != "'.a:filename.'"')
   let s:resurrect_file_lines = [a:filename] + l:withoutFileName
 endfunction
